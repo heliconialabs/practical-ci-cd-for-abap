@@ -1,0 +1,17 @@
+:plantuml-server-url: https://www.plantuml.com/plantuml
+:source-highlighter: rouge
+:title-logo-image: image::../img/logo.svg[logo]
+
+= A practical CI/CD setup for ABAP
+Heliconia Labs, Month Year
+:numbered:
+
+include::introduction.adoc[]
+
+<<<
+
+include::development.adoc[]
+
+<<<
+
+include::deployment.adoc[]

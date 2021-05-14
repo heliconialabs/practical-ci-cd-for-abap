@@ -1,0 +1,99 @@
+== Deployment
+
+Process starting at transport release,
+
+git mirroring of systems, for deployment, not development
+
+Developers create transports in DEV, or transports are created via abapGit import
+
+=== Git Mirroring
+
+[plantuml]
+....
+skinparam monochrome true
+
+actor Developer
+
+package "Dev Repository" {
+  file ""main" branch"as git
+}
+
+node DEV
+node QAS
+node PRE
+node PRD
+
+Developer -> DEV
+git <-up-> DEV: abapGit
+
+package "CD Repository" {
+  file ""QAS" branch" as UC2
+  file ""PRE" branch" as UC3
+}
+
+DEV -> QAS: CTS
+QAS -> PRE: CTS
+PRE -> PRD: CTS
+
+QAS -down-> UC2: abapGit
+PRE -> UC3: abapGit
+....
+
+Initial setup: create QAS + PRE branches
+
+Maintenance: update abapGit, check QAS and PRD branches are in sync with systems
+
+[plantuml]
+....
+skinparam monochrome true
+
+participant Developer
+participant DEV
+participant QAS
+participant PRE
+participant PRD
+participant Git
+participant CI
+
+@startuml
+autonumber
+Developer -> DEV : Create transport TR1
+
+DEV -> Git : Create branch BR1, base = QAS
+DEV -> Git : Push objects from TR1 to BR1
+DEV -> Git : Open PR1 from BR1, target = QAS
+Git -> CI : CI runs for PR1
+
+Developer -\\o DEV : Releases TR1
+DEV -> QAS : Import TR1
+note left: Automatic after release
+QAS -> Git : Merge PR1 into QAS branch
+Git -> Git : Rebase all open PRs
+Git -> CI : CI runs
+QAS -> PRE : CTS queues TR1
+
+PRE -> Git : Create branch BR2, base = PRE
+PRE -> Git : Push objects from TR1 to BR2
+PRE -> Git : Open PR2 from BR2, target = PRE
+Git -> CI : CI runs for PR2
+
+QAS -\\o PRE : Import TR1
+PRE -> Git : Merge PR2 into PRE branch
+Git -> Git : Rebase all open PRs
+Git -> CI : CI runs
+PRE -> PRD : CTS queues TR1
+
+PRE -> PRD : Import TR1
+note right: Must follow PRE sequence
+@enduml
+....
+
+This is the simplest scenario, transport of copies and more system tiers can be added or removed.
+
+Above might be complicated, but most can happen behind the scene.
+
+Merge type must be overwriting, not actual git which tries its best to merge.
+
+merge trains?
+Spin up a 100gb + memory s4 hana
+mock ui?

@@ -1,0 +1,48 @@
+== Introduction
+
+lorem ipsum
+
+* Why is this important?
+* benefit everyone, 702 and up
+* CTS features is a subset of git??? at least the deployment features?
+
+Securing a PR can be merged safely is much like securing that CTS transprot can be imported safely.
+
+Reproduceable on local PC => incremental cloud style evolution.
+
+Self and independently phased CI/CD rollout and upgrade
+
+=== CTS
+
+classic CTS, see
+
+=== Open Source Tooling
+
+Open source tools to encourage an open culture
+
+abapGit + abaplint
+
+=== Landscape
+
+Classic, no new systems, but process can be extended, throwaway systems, distributed development.
+
+[plantuml]
+....
+skinparam monochrome true
+
+node DEV
+node QAS
+node PRE
+node PRD
+
+DEV -> QAS
+QAS -> PRE
+PRE -> PRD
+....
+
+DEV: Source for all CTS transports
+
+QAS: UAT by business key users
+
+PRE: Important, the development artifacts in this system matches PRD as much as possible.
+Transports are imported to this system just before PRD to secure no syntax errors in PRD after import.
