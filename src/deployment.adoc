@@ -2,6 +2,8 @@
 
 Process starting at transport release,
 
+use git for storing files, merges are CTS-like-merges, not traditional git
+
 git mirroring of systems, for deployment, not development
 
 Developers create transports in DEV, or transports are created via abapGit import
@@ -97,3 +99,73 @@ Merge type must be overwriting, not actual git which tries its best to merge.
 merge trains?
 Spin up a 100gb + memory s4 hana
 mock ui?
+
+=== Sequential queue clearing
+
+Clearing a queue of 10 TRs, one by one in sequence
+
+1. Import TR1, trigger CI on "main", rebase 9 branches
+2. Import TR2, trigger CI on "main", rebase 8 branches
+3. Import TR3, trigger CI on "main", rebase 7 branches
+4. Import TR4, trigger CI on "main", rebase 6 branches
+5. Import TR5, trigger CI on "main", rebase 5 branches
+6. Import TR6, trigger CI on "main", rebase 4 branches
+7. Import TR7, trigger CI on "main", rebase 3 branches
+8. Import TR8, trigger CI on "main", rebase 2 branches
+9. Import TR9, trigger CI on "main", rebase 1 branches
+10. Import TR10, trigger CI on "main"
+
+=>  10 + 9 + 8 + 7 + 6 + 5 + 4 + 3 + 2 + 1 = 55 CI runs
+
+runs(n) = ½ * n * (n + 1), https://en.wikipedia.org/wiki/Triangular_number
+
+[width=50%, cols=">1,>1"]
+|===
+| TRs | CI Runs
+
+| 10 | 55
+| 20 | 210
+| 50 | 1275
+| 100 | 5050
+|===
+
+5050 runs, slow and large: 1 hour / run = 5050 hours = 210 full days, 256gb memory = USD 3/hour = [.underline]#USD 15150#
+
+5050 runs, small and fast: 5 minutes / run = 420 hours = 18 full days, 8gb memory = USD 0.1/hour = [.underline]#USD 42#
+
+=== Speculative combinatorics
+
+Example, 3 transports in queue, gives following permutations, but note that the sequence is defined by the queue,
+
+[width=50%, cols="1"]
+|===
+| TR1 TR2 TR3
+| TR1 TR3 TR2 - not valid
+| TR2 TR1 TR3 - not valid
+| TR2 TR3 TR1 - not valid
+| TR3 TR1 TR2 - not valid
+| TR3 TR2 TR1 - not valid
+| TR1 TR2
+| TR1 TR3
+| TR2 TR1 - not valid
+| TR2 TR3
+| TR3 TR1 - not valid
+| TR3 TR2 - not valid
+| TR1
+| TR2
+| TR3
+|===
+
+=> Binomial cofficient series = 2^n - 1, https://en.wikipedia.org/wiki/Binomial_coefficient
+
+
+[width=75%, cols="1,1,1"]
+|===
+| TRs | Calculation | Result
+
+| 3  TRs |  2^3  - 1 |     7 combinations
+| 4  TRs |  2^4  - 1 |    15 combinations
+| 10 TRs |  2^10 - 1 |  1023 combinations
+|===
+
+assuming full coverage
