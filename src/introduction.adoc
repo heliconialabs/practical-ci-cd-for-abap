@@ -26,13 +26,24 @@ Self and independently phased CI/CD rollout and upgrade
 
 === CTS
 
-classic CTS, see
+classic CTS, see "CTS is beautiful" blog
 
 === Open Source Tooling
 
 Open source tools to encourage an open culture
 
 abapGit + abaplint
+
+=== CI and CD differences
+
+CI = Parallel
+CD = Sequential
+
+CI = Speed and flexibility
+CD = Safety and auditability
+
+CI = Merge
+CD = Overwrite
 
 === Landscape
 
