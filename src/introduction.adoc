@@ -47,7 +47,7 @@ lorem ipsum
 | Flexibility            | Auditability
 | Merge                  | Overwrite
 | Check Style and Syntax | Syntax Only
-| Repository level       | System level
+| Per every commit       | Transport into system
 |===
 
 === Landscape
