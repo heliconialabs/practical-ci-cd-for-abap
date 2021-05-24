@@ -1,7 +1,7 @@
 :plantuml-server-url: https://www.plantuml.com/plantuml
 :source-highlighter: rouge
 
-= A practical CI/CD setup for ABAP
+= Practical CI/CD for ABAP
 Lars Hvam, Heliconia Labs, June 2021
 :numbered:
 

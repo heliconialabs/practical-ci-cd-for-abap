@@ -1,11 +1,12 @@
 == Conclusion
 
-. No new infrastructure (or limited to the PRE system)
-. Incrementatl delivery over time
-. 702 and up
+. No new infrastructure (or limited to the PRE system), colud solution
+. 702 and up possible
 . incremental cloud style evolution
 . possible extension with throwaway systems + distributed development
 . Self and independently phased CI/CD rollout and upgrade
 . Secure, only CTS import
-. Secure, only push from QAS,PRE,PRD systems
-. Business continuity, fallback to CTS
+. Secure, only push from DEV,QAS,PRE systems
+. Business continuity, fallback to CTS if everything git is down
+. Not just referential checks, as things move faster, more exotic scenarios will occur
+. Keep development tooling separate from kernel

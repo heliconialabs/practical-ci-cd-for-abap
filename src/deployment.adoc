@@ -1,6 +1,6 @@
 == Deployment
 
-The goal is to avoid syntax errors when importing transports, this is done by storing objects from transports and systems in git, then simulating the state after import and then verifying by running link:https://abaplint.org/[abaplint].
+The goal is to avoid syntax errors when importing workbench transports, this is done by storing objects from transports and systems in git, then simulating the state after import and then verifying by running link:https://abaplint.org/[abaplint].
 
 The user will not be allowed to release a transport from DEV if it results in syntax errors in QAS. Similariy, the setup will give a list of transports which are good to import into follow-on systems.
 
@@ -33,9 +33,9 @@ Developer -> DEV
 git <-up-> DEV: abapGit
 
 package "CD Repository" {
-  file "Transports" as UC1
-  file ""QAS" branch" as UC2
-  file ""PRE" branch" as UC3
+  file "Transport\nbranches" as UC1
+  file ""QAS"\nbranch" as UC2
+  file ""PRE"\nbranch" as UC3
 }
 
 DEV -> QAS: CTS
@@ -73,7 +73,7 @@ Developer -\\o DEV : Releases TR1
 DEV -> QAS : CTS import TR1
 note right: Automatic after release
 QAS -> Git : Merge TR1 into QAS branch
-Git -> CI : Simulate queued QAS TRs
+Git -> CI : Simulate unreleased TRs
 QAS -> PRE : CTS queues TR1
 
 Git -> CI : Simulate TR1 into PRE
@@ -101,6 +101,11 @@ Few maintenance tasks to perform regularly,
 === Prerequsites
 
 . Transports at R3TR level
+
+=== Open Questions
+
+. ABAP Package Checks ?
+. Rollback of ABAP objects, abapGit solution, out of this scope?
 
 === Feasibility
 
