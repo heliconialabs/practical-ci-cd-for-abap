@@ -38,7 +38,7 @@ Reproduceable on local PC by the developer
 
 lorem ipsum
 
-[width=50%, cols="1,1"]
+[width=60%, cols="1,1"]
 |===
 | Continious Integration | Continious Delivery
 
@@ -46,6 +46,8 @@ lorem ipsum
 | Speed                  | Safety and
 | Flexibility            | Auditability
 | Merge                  | Overwrite
+| Check Style and Syntax | Syntax Only
+| Repository level       | System level
 |===
 
 === Landscape
