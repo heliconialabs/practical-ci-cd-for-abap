@@ -5,3 +5,6 @@
 . 702 and up
 . incremental cloud style evolution
 . possible extension with throwaway systems + distributed development
+. Self and independently phased CI/CD rollout and upgrade
+. Secure, only CTS import
+. Secure, only push from QAS,PRE,PRD systems

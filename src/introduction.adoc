@@ -12,19 +12,16 @@
 
 == Introduction
 
-lorem ipsum
+ABAP is used for business-critical tasks, basic CI/CD should be the default, not the exception. This document introduces a incremental CI/CD setup possible for all releases 702 and up.
 
-* Why is this important?
-* benefit everyone, 702 and up
-* CTS features is a subset of git??? at least the deployment features?
+abapGit has used abaplint to check for syntax errors before merges for multiple years, a similar albeit more complex
+approach can be used to perform similar checks in a classic SAP landscape where changes are deployed using CTS.
 
-Securing a PR can be merged safely is much like securing that CTS transprot can be imported safely.
-
-Reproduceable on local PC
-
-Self and independently phased CI/CD rollout and upgrade
+As ABAP is a complicated language, occationaly syntax errors make it into the main branch, the scenario is then fixed in abaplint, and similar errorrs can henceforth be detected.
 
 === CTS
+
+CTS features is a subset of git??? at least the deployment features?
 
 classic CTS, see "CTS is beautiful" blog
 
@@ -39,16 +36,20 @@ Open source tools to encourage an open culture
 
 Delivered independently of the SAP release
 
+Reproduceable on local PC by the developer
+
 === CI and CD differences
 
-CI = Parallel
-CD = Sequential
+lorem ipsum
 
-CI = Speed and flexibility
-CD = Safety and auditability
+[width=50%, cols="1,1"]
+|===
+| CI | CD
 
-CI = Merge
-CD = Overwrite
+| Parallel | Sequential
+| Speed and flexibility | Safety and auditability
+| Merge | Overwrite
+|===
 
 === Landscape
 
