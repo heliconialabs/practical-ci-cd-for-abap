@@ -21,11 +21,7 @@ As ABAP is a complicated language, occationaly syntax errors make it into the ma
 
 === CTS
 
-CTS features is a subset of git??? at least the deployment features?
-
-classic CTS, see "CTS is beautiful" blog
-
-link:https://blogs.sap.com/2020/11/05/cts-is-beautiful/[CTS is beautiful]
+Use classic CTS, see link:https://blogs.sap.com/2020/11/05/cts-is-beautiful/[CTS is beautiful] blog
 
 === Open Source Tooling
 
@@ -44,16 +40,17 @@ lorem ipsum
 
 [width=50%, cols="1,1"]
 |===
-| CI | CD
+| Continious Integration | Continious Delivery
 
-| Parallel | Sequential
-| Speed and flexibility | Safety and auditability
-| Merge | Overwrite
+| Parallel               | Sequential
+| Speed                  | Safety and
+| Flexibility            | Auditability
+| Merge                  | Overwrite
 |===
 
 === Landscape
 
-The setup described will take offset in a classic 4 tier system landscape,
+The setup will take offset in a classic 4 tier system landscape,
 
 [plantuml]
 ....
@@ -76,4 +73,4 @@ PRE -> PRD
 `PRE`: Important, the development artifacts in this system matches PRD.
 Transports are imported to this system just before PRD to secure no syntax errors in PRD after import.
 
-The setup can be expanded with more system tiers and transport routes.
+The scenario can be expanded with more system tiers and transport routes.

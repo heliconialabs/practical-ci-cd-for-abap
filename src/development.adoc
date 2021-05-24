@@ -2,6 +2,16 @@
 
 lorem ipsum
 
-Introduce CI = abaplint
+Use abaplint for CI
 
-git in the traditional sense of git
+=== Central Development
+
+Review setup,
+
+https://github.com/SAP/styleguides/releases/download/latest/abap-code-review-guide.pdf
+
+=== Distributed Development
+
+Use abapGit
+
+git is used for distributed development, taking advantage of git for what its designed for

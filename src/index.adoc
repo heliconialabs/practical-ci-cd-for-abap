@@ -2,7 +2,7 @@
 :source-highlighter: rouge
 
 = A practical CI/CD setup for ABAP
-Heliconia Labs, Month Year
+Lars Hvam, Heliconia Labs, June 2021
 :numbered:
 
 include::introduction.adoc[]
