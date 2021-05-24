@@ -43,7 +43,7 @@ lorem ipsum
 | Continious Integration | Continious Delivery
 
 | Parallel               | Sequential
-| Speed                  | Safety and
+| Speed                  | Safety
 | Flexibility            | Auditability
 | Merge                  | Overwrite
 | Check Style and Syntax | Syntax Only
