@@ -22,6 +22,7 @@ jobs:
       with:
         deploy_key: ${{ secrets.DOCS_DEPLOY_KEY }}
         external_repository: heliconialabs/docs.heliconialabs.com
+        publish_branch: main
         user_name: 'github-actions[bot]'
         user_email: 'github-actions[bot]@users.noreply.github.com'
         publish_dir: ./build
