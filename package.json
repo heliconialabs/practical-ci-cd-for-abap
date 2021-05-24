@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/heliconialabs/about-abap-development#readme",
   "dependencies": {
-    "@asciidoctor/cli": "^3.4.0",
+    "@asciidoctor/cli": "^3.5.0",
     "@asciidoctor/core": "^2.2.4",
     "asciidoc-link-check": "^1.0.15",
     "asciidoctor-kroki": "^0.12.0",
