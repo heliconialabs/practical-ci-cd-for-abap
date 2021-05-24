@@ -3,3 +3,5 @@
 . No new infrastructure (or limited to the PRE system)
 . Incrementatl delivery over time
 . 702 and up
+. incremental cloud style evolution
+. possible extension with throwaway systems + distributed development

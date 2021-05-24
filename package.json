@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "links": "find src -name \\*.adoc | xargs -n1 asciidoc-link-check -p",
-    "pdf": "asciidoctor-web-pdf -r asciidoctor-plantuml -r asciidoctor-kroki -d book -D build src/index.adoc -a stylesheet=\"asciidoctor-pdf/css/asciidoctor.css,asciidoctor-pdf/css/document.css,asciidoctor-pdf/css/features/title-page.css,custom.css\"",
+    "pdf": "asciidoctor-web-pdf -a stem -r asciidoctor-plantuml -r asciidoctor-kroki -d book -D build src/index.adoc -a stylesheet=\"asciidoctor-pdf/css/asciidoctor.css,asciidoctor-pdf/css/document.css,asciidoctor-pdf/css/features/title-page.css,custom.css\"",
     "move": "mv build/index.pdf build/practical-ci-cd-for-abap.pdf",
     "test": "npm run pdf && npm run move"
   },

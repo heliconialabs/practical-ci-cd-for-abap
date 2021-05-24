@@ -20,7 +20,7 @@ lorem ipsum
 
 Securing a PR can be merged safely is much like securing that CTS transprot can be imported safely.
 
-Reproduceable on local PC => incremental cloud style evolution.
+Reproduceable on local PC
 
 Self and independently phased CI/CD rollout and upgrade
 
@@ -28,11 +28,16 @@ Self and independently phased CI/CD rollout and upgrade
 
 classic CTS, see "CTS is beautiful" blog
 
+link:https://blogs.sap.com/2020/11/05/cts-is-beautiful/[CTS is beautiful]
+
 === Open Source Tooling
 
 Open source tools to encourage an open culture
 
-abapGit + abaplint
+* link:https://abapgit.org[abapGit]
+* link:https://abaplint.org[abaplint]
+
+Delivered independently of the SAP release
 
 === CI and CD differences
 
@@ -47,7 +52,7 @@ CD = Overwrite
 
 === Landscape
 
-Classic, no new systems, but process can be extended, throwaway systems, distributed development.
+The setup described will take offset in a classic 4 tier system landscape,
 
 [plantuml]
 ....
@@ -63,9 +68,11 @@ QAS -> PRE
 PRE -> PRD
 ....
 
-DEV: Source for all CTS transports
+`DEV`: Source for all CTS transports
 
-QAS: UAT by business key users
+`QAS`: User acceptance test by business key users
 
-PRE: Important, the development artifacts in this system matches PRD as much as possible.
+`PRE`: Important, the development artifacts in this system matches PRD.
 Transports are imported to this system just before PRD to secure no syntax errors in PRD after import.
+
+The setup can be expanded with more system tiers and transport routes.

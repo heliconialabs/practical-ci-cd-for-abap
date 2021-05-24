@@ -1,14 +1,18 @@
 == Deployment
 
-Process starting at transport release,
+The goal is to avoid syntax errors when importing transports, this is done by storing objects from transports and systems in git, then simulating the state after import and then verifying by running link:https://abaplint.org/[abaplint].
 
-use git for storing files, merges are CTS-like-merges, not traditional git
+The user will not be allowed to release a transport from DEV if it results in syntax errors in QAS. Similariy, the setup will give a list of transports which are good to import into follow-on systems.
 
-git mirroring of systems, for deployment, not development
-
-Developers create transports in DEV, or transports are created via abapGit import
+The result of this setup are simple lists of good transports, but there are multiple automatic processes running to produce the lists, this chapter describes the proposed setup.
 
 === Git Mirroring
+
+To support a CD setup, systems are mirrored into a specific CD repository, developers will not be working with this repository, it is only used for automation. In this setup git is used as a filesystem, more than the actual features of git is used.
+
+Transports from DEV are mirrored into branches, the objects of the QAS system is mirroed into a QAS branch and PRE into a PRE branch. PRD is not mirrored, the CD pipeline is executed before PRD.
+
+Developers can use their favorite tooling to do changes in DEV, these changes are reported into transport requests.
 
 [plantuml]
 ....
@@ -29,6 +33,7 @@ Developer -> DEV
 git <-up-> DEV: abapGit
 
 package "CD Repository" {
+  file "Transports" as UC1
   file ""QAS" branch" as UC2
   file ""PRE" branch" as UC3
 }
@@ -37,13 +42,12 @@ DEV -> QAS: CTS
 QAS -> PRE: CTS
 PRE -> PRD: CTS
 
+DEV -down-> UC1: abapGit
 QAS -down-> UC2: abapGit
 PRE -> UC3: abapGit
 ....
 
-Initial setup: create QAS + PRE branches
-
-Maintenance: update abapGit, check QAS and PRD branches are in sync with systems
+Below diagram gives an example of the lifecycle for a single transport request "TR1":
 
 [plantuml]
 ....
@@ -61,48 +65,50 @@ participant CI
 autonumber
 Developer -> DEV : Create transport TR1
 
-DEV -> Git : Create branch BR1, base = QAS
-DEV -> Git : Push objects from TR1 to BR1
-DEV -> Git : Open PR1 from BR1, target = QAS
-Git -> CI : CI runs for PR1
+DEV -> Git : Create branch TR1
+DEV -> Git : Push objects to TR1
+Git -> CI : Simulate TR1 into QAS
 
 Developer -\\o DEV : Releases TR1
-DEV -> QAS : Import TR1
-note left: Automatic after release
-QAS -> Git : Merge PR1 into QAS branch
-Git -> Git : Rebase all open PRs
-Git -> CI : CI runs
+DEV -> QAS : CTS import TR1
+note right: Automatic after release
+QAS -> Git : Merge TR1 into QAS branch
+Git -> CI : Simulate queued QAS TRs
 QAS -> PRE : CTS queues TR1
 
-PRE -> Git : Create branch BR2, base = PRE
-PRE -> Git : Push objects from TR1 to BR2
-PRE -> Git : Open PR2 from BR2, target = PRE
-Git -> CI : CI runs for PR2
+Git -> CI : Simulate TR1 into PRE
 
-QAS -\\o PRE : Import TR1
-PRE -> Git : Merge PR2 into PRE branch
-Git -> Git : Rebase all open PRs
-Git -> CI : CI runs
+QAS -\\o PRE : CTS Import TR1
+PRE -> Git : Merge TR1 into PRD branch
+Git -> CI : Simulate queued PRD TRs
+
 PRE -> PRD : CTS queues TR1
 
-PRE -> PRD : Import TR1
+PRE -> PRD : CTS Import TR1
 note right: Must follow PRE sequence
 @enduml
 ....
 
 This is the simplest scenario, transport of copies and more system tiers can be added or removed.
 
-Above might be complicated, but most can happen behind the scene.
+=== Maintenance Tasks
 
-Merge type must be overwriting, not actual git which tries its best to merge.
+Few maintenance tasks to perform regularly,
 
-merge trains?
-Spin up a 100gb + memory s4 hana
-mock ui?
+. Update abapGit on all Systems
+. Check QAS and PRD branches are in sync with systems
 
-=== Sequential queue clearing
+=== Prerequsites
 
-Clearing a queue of 10 TRs, one by one in sequence
+. Transports at R3TR level
+
+=== Feasibility
+
+The CD setup will require a lot of jobs to run on the CI servers. This section gives some overall estimates on the number of CI runs given a number of transport requests.
+
+==== Sequential queue clearing
+
+Importing a queue of 10 transport requests, one by one in sequence. Below numbers are for one system, but it must be run for both QAS and PRD in the example landscape.
 
 1. Import TR1, trigger CI on "main", rebase 9 branches
 2. Import TR2, trigger CI on "main", rebase 8 branches
@@ -115,9 +121,11 @@ Clearing a queue of 10 TRs, one by one in sequence
 9. Import TR9, trigger CI on "main", rebase 1 branches
 10. Import TR10, trigger CI on "main"
 
-=>  10 + 9 + 8 + 7 + 6 + 5 + 4 + 3 + 2 + 1 = 55 CI runs
+sequential(10) = 10 + 9 + 8 + 7 + 6 + 5 + 4 + 3 + 2 + 1 = 55
 
-runs(n) = ½ * n * (n + 1), https://en.wikipedia.org/wiki/Triangular_number
+latexmath:[$sequential(n) = \frac{1}{2} n (n+1)$]
+
+https://en.wikipedia.org/wiki/Triangular_number
 
 [width=50%, cols=">1,>1"]
 |===
@@ -129,35 +137,37 @@ runs(n) = ½ * n * (n + 1), https://en.wikipedia.org/wiki/Triangular_number
 | 100 | 5050
 |===
 
-5050 runs, slow and large: 1 hour / run = 5050 hours = 210 full days, 256gb memory = USD 3/hour = [.underline]#USD 15150#
+Moving fast in a large SAP installation, having 100 transports per week is relalistic(?)
 
-5050 runs, small and fast: 5 minutes / run = 420 hours = 18 full days, 8gb memory = USD 0.1/hour = [.underline]#USD 42#
+.Estimate, cost for 5050 CI runs
+[cols="1,>1,>1,>1,>1"]
+|===
+| Scenario       | Time per run | Memory | Price/hour | Total
 
-=== Speculative combinatorics
+| Full container | 1 hour       | 256 gb | USD 3.0 | [.underline]#USD 15150#
+| abaplint       | 5 minutes    | 8 gb   | USD 0.1 | [.underline]#USD 42#
+|===
 
-Example, 3 transports in queue, gives following permutations, but note that the sequence is defined by the queue,
+==== Speculative combinatorics
+
+Example, 3 transports in queue, gives following combinations, note that the sequence is defined by the queue,
 
 [width=50%, cols="1"]
 |===
 | TR1 TR2 TR3
-| TR1 TR3 TR2 - not valid
-| TR2 TR1 TR3 - not valid
-| TR2 TR3 TR1 - not valid
-| TR3 TR1 TR2 - not valid
-| TR3 TR2 TR1 - not valid
 | TR1 TR2
 | TR1 TR3
-| TR2 TR1 - not valid
 | TR2 TR3
-| TR3 TR1 - not valid
-| TR3 TR2 - not valid
 | TR1
 | TR2
 | TR3
 |===
 
-=> Binomial cofficient series = 2^n - 1, https://en.wikipedia.org/wiki/Binomial_coefficient
+Binomial cofficient series
 
+latexmath:[$speculative(n) = 2^n - 1$]
+
+https://en.wikipedia.org/wiki/Binomial_coefficient
 
 [width=75%, cols="1,1,1"]
 |===
@@ -168,4 +178,6 @@ Example, 3 transports in queue, gives following permutations, but note that the 
 | 10 TRs |  2^10 - 1 |  1023 combinations
 |===
 
-assuming full coverage
+Assuming full coverage.
+
+Speculative merge results must be configured for a specific maximum depth.
