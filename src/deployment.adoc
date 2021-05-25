@@ -97,6 +97,7 @@ Few maintenance tasks to perform regularly,
 
 . Update abapGit on all Systems
 . Check QAS and PRD branches are in sync with systems
+. Keeping abaplint configuration up to date
 
 === Prerequsites
 
