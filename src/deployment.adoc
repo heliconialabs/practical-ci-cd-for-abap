@@ -106,6 +106,7 @@ Few maintenance tasks to perform regularly,
 
 . ABAP Package Checks ?
 . Rollback of ABAP objects, abapGit solution, out of this scope?
+. SAP notes causing syntax errors in custom code
 
 === Feasibility
 

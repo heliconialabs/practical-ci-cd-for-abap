@@ -4,6 +4,8 @@ lorem ipsum
 
 Use abaplint for CI
 
+link:https://abaplint.app[abaplint.app] is one click installation for code review and CI
+
 === Central Development
 
 Review setup,
