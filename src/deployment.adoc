@@ -155,7 +155,7 @@ Moving fast in a large SAP installation, having 100 transports per week is relal
 | abaplint       | 5 minutes    | 8 gb   | USD 0.1 | [.underline]#USD 42#
 |===
 
-abaplint 2.74.23, 4 million lines of ABAP, syntax only, 8 gb memory allocated to node, single core boost = 2.4ghz, in ~10 minutes
+abaplint 2.74.23, 4 million lines of ABAP and other ABAP artifacts, syntax only, 8 gb memory allocated to node, single core boost = 2.4ghz, in ~10 minutes
 (`find -name '*.abap' | xargs cat | wc -l`)
 
 ==== Speculative combinatorics
