@@ -158,6 +158,8 @@ Moving fast in a large SAP installation, having 100 transports per week is relal
 abaplint 2.74.23, 4 million lines of ABAP and other ABAP artifacts, syntax only, 8 gb memory allocated to node, single core boost = 2.4ghz, in ~10 minutes
 (`find -name '*.abap' | xargs cat | wc -l`)
 
+Public link:https://github.com/heliconialabs/abaplint-app-performance[abaplint-app-performance], 500k lines of ABAP in 50 seconds
+
 ==== Speculative combinatorics
 
 Example, 3 transports in queue, gives following combinations, note that the sequence is defined by the queue,
