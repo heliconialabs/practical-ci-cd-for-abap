@@ -12,12 +12,12 @@
 
 == Introduction
 
-ABAP is used for business-critical tasks, basic CI/CD should be the default, not the exception. This document introduces a incremental CI/CD setup possible for all releases 702 and up.
+ABAP is used for business-critical tasks, basic CI/CD should be the default, not the exception. This document introduces a incremental CI/CD setup releases 702 and up.
 
-abapGit has used abaplint to check for syntax errors before merges for multiple years, a similar albeit more complex
+abapGit has used abaplint to check for syntax errors before merges for multiple years, a similar but more complex
 approach can be used to perform similar checks in a classic SAP landscape where changes are deployed using CTS.
 
-As ABAP is a complicated language, occationaly syntax errors make it into the main branch, the scenario is then fixed in abaplint, and similar errorrs can henceforth be detected.
+As ABAP is a complicated language, occasionally syntax errors make it into the main branch, the scenario is then fixed in abaplint, and similar errors can henceforth be detected.
 
 === CTS
 
@@ -32,7 +32,7 @@ Open source tools to encourage an open culture
 
 Delivered independently of the SAP release
 
-Reproduceable on local PC by the developer
+The developer can reproduce on local PC
 
 === CI and CD differences
 
@@ -70,9 +70,9 @@ PRE -> PRD
 
 `DEV`: Source for all CTS transports
 
-`QAS`: User acceptance test by business key users
+`QAS`: User acceptance test by business users
 
 `PRE`: Important, the development artifacts in this system matches PRD.
-Transports are imported to this system just before PRD to secure no syntax errors in PRD after import.
+Transports are imported to this system just before PRD, in case there is a syntax error the change is abandoned. This will secure no syntax errors in PRD after import.
 
 The scenario can be expanded with more system tiers and transport routes.
