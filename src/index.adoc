@@ -7,14 +7,8 @@ Lars Hvam, Heliconia Labs, June 2021
 
 include::introduction.adoc[]
 
-<<<
-
 include::development.adoc[]
 
-<<<
-
 include::deployment.adoc[]
-
-<<<
 
 include::conclusion.adoc[]

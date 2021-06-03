@@ -1,4 +1,4 @@
-== Deployment
+== CD
 
 The goal is to avoid syntax errors when importing workbench transports, this is done by storing objects from transports and systems in git, then simulating the state after import and verifying by running link:https://abaplint.org/[abaplint].
 
@@ -186,7 +186,7 @@ Example, 3 transports in queue, gives following combinations, note that the sequ
 | TR3
 |===
 
-Binomial cofficient series
+Binomial coefficient series
 
 latexmath:[$speculative(n) = 2^n - 1$]
 

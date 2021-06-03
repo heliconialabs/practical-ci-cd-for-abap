@@ -1,7 +1,7 @@
 == Conclusion
 
-. No new infrastructure (or limited to the PRE system), colud solution
-. 702 and up possible
+. No new infrastructure (or limited to the PRE system), cloud solution
+. 702 and up
 . incremental cloud style evolution
 . possible extension with throwaway systems + distributed development
 . Self and independently phased CI/CD rollout and upgrade

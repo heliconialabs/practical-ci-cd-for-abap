@@ -26,8 +26,8 @@
 
 /* logo on frontpage */
 @page :first {
-  background-size: 40%;
-  background-position: 50% 20%;
+  background-size: 50%;
+  background-position: 50% 30%;
   background-repeat: no-repeat;
   background-image: url("./img/heliconialabs_pathed.svg");
 }

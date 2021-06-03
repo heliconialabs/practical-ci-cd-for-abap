@@ -1,19 +1,6 @@
-== Development
+== CI
 
-lorem ipsum
+Use abaplint for CI, if developing in a de-central git focused setup link:https://abaplint.app[abaplint.app] is one click installation for code review and CI.
 
-Use abaplint for CI
+For central development, link:https://github.com/SAP/styleguides/releases/download/latest/abap-code-review-guide.pdf[abap-code-review-guide.pdf] describes various approaches, which enables code review and CI.
 
-link:https://abaplint.app[abaplint.app] is one click installation for code review and CI
-
-=== Central Development
-
-Review setup,
-
-https://github.com/SAP/styleguides/releases/download/latest/abap-code-review-guide.pdf
-
-=== Distributed Development
-
-Use abapGit
-
-git is used for distributed development, taking advantage of git for what its designed for
