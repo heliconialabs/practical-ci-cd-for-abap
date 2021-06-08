@@ -1,12 +1,13 @@
 == Conclusion
 
+CI/CD can be added in existing landscapes with small impact on processes and infrastructure.
+
 . No new infrastructure (or limited to the PRE system), cloud solution
 . 702 and up
-. incremental cloud style evolution
-. possible extension with throwaway systems + distributed development
+. Incremental cloud style evolution
 . Self and independently phased CI/CD rollout and upgrade
 . Secure, only CTS import
 . Secure, only push from DEV,QAS,PRE systems
-. Business continuity, fallback to CTS if everything git is down
+. Business continuity, fallback to CTS if git is down
 . Not just referential checks, as things move faster, more exotic scenarios will occur
 . Keep development tooling separate from kernel

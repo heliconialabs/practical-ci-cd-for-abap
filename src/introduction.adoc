@@ -4,7 +4,7 @@
 |link:https://github.com/heliconialabs/practical-ci-cd-for-abap[https://github.com/heliconialabs/practical-ci-cd-for-abap]
 
 |License
-|link:https://github.com/heliconialabs/practical-ci-cd-for-abap/blob/main/LICENSE[Creative Commons]
+|link:https://github.com/heliconialabs/practical-ci-cd-for-abap/blob/main/LICENSE[Creative Commons Attribution 4.0 International]
 
 |Build
 |{docdatetime}
@@ -12,42 +12,47 @@
 
 == Introduction
 
-ABAP is used for business-critical tasks, basic CI/CD should be the default, not the exception. This document introduces a incremental CI/CD setup releases 702 and up.
+Basic CI/CD should be the default for ABAP development, not the exception. This document introduces a incremental CI/CD setup for releases 702 and up.
 
-abapGit has used abaplint to check for syntax errors before merges for multiple years, a similar but more complex
-approach can be used to perform similar checks in a classic SAP landscape where changes are deployed using CTS.
+The link:https://abapgit.org[abapGit] project uses link:https://abaplint.org[abaplint] to check for syntax errors before merges, this helps ensuring a stable `main` branch.
+A similar, but more complex, approach can be used to perform validations in classic SAP landscapes where changes are deployed using CTS.
 
-As ABAP is a complicated language, occasionally syntax errors make it into the main branch, the scenario is then fixed in abaplint, and similar errors can henceforth be detected.
+As ABAP is a complicated language, occasionally syntax errors make it into the `main` branch, due to missing checks in abaplint. The bug is then fixed in abaplint, and similar errors can henceforth be detected.
 
 === CTS
 
-Use classic CTS, see link:https://blogs.sap.com/2020/11/05/cts-is-beautiful/[CTS is beautiful] blog
+CTS will be used for deploying changes between systems in the local landscape.
+
+See the link:https://blogs.sap.com/2020/11/05/cts-is-beautiful/[CTS is beautiful] blog for more insights.
 
 === Open Source Tooling
 
-Open source tools to encourage an open culture
+The approach is based on open source tooling, this allows developers to share fixes, and promotes an open culture across organizations.
 
 * link:https://abapgit.org[abapGit]
 * link:https://abaplint.org[abaplint]
 
-Delivered independently of the SAP release
+The tooling is delivered independently of SAP releases(702+).
 
-The developer can reproduce on local PC
+And issues can be reproduced on a local PC by developers, on normal sized hardware.
 
 === CI and CD differences
 
-lorem ipsum
+The
+link:https://www.jetbrains.com/teamcity/ci-cd-guide/continuous-integration-vs-delivery-vs-deployment/[Continuous Integration and Continuous Delivery] terms have different interpretations, but its important to note some of the
+conceptual differences:
 
-[width=60%, cols="1,1"]
+.CI/CD concepts
+[width=70%, cols="1,1"]
 |===
-| Continious Integration | Continious Delivery
+| Continuous Integration | Continuous Delivery
 
 | Parallel               | Sequential
 | Speed                  | Safety
-| Flexibility            | Auditability
+| Flexibility            | Auditable
 | Merge                  | Overwrite
-| Check Style and Syntax | Syntax Only
-| Per every commit       | Transport into system
+| Style and Syntax       | Syntax Only
+| Per commit             | Per build artifact(Transport)
 |===
 
 === Landscape

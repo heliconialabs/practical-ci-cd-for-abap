@@ -2,7 +2,7 @@
 
 The goal is to avoid syntax errors when importing workbench transports, this is done by storing objects from transports and systems in git, then simulating the state after import and verifying by running link:https://abaplint.org/[abaplint].
 
-The user will not be allowed to release a transport from DEV if it results in syntax errors in QAS. Similariy, the setup will give a list of transports which are good to import into follow-on systems.
+The user will not be allowed to release a transport from DEV if it results in syntax errors in QAS. Similarly, the setup will give a list of transports which are good to import into follow-on systems.
 
 The result of this setup are simple lists of good transports, but there are multiple automatic processes running to produce the lists, this chapter describes the proposed setup.
 
@@ -143,6 +143,7 @@ latexmath:[$sequential(n) = \frac{1}{2} n (n+1)$]
 
 https://en.wikipedia.org/wiki/Triangular_number
 
+.CI runs per TR queue
 [width=50%, cols=">1,>1"]
 |===
 | TRs | CI Runs
@@ -175,6 +176,7 @@ abaplint does require more work to do proper syntax checks, which will result in
 
 Example, 3 transports in queue, gives following combinations, note that the sequence is defined by the queue,
 
+.Import combinations
 [width=50%, cols="1"]
 |===
 | TR1 TR2 TR3
@@ -192,6 +194,7 @@ latexmath:[$speculative(n) = 2^n - 1$]
 
 https://en.wikipedia.org/wiki/Binomial_coefficient
 
+.Speculative combinations
 [width=75%, cols="1,1,1"]
 |===
 | TRs | Calculation | Result
