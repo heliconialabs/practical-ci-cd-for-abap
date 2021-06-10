@@ -53,6 +53,7 @@ conceptual differences:
 | Merge                  | Overwrite
 | Style and Syntax       | Syntax Only
 | Per commit             | Per build artifact(Transport)
+| Before code review     | After code review
 |===
 
 === Landscape
