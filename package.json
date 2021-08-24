@@ -1,5 +1,5 @@
 {
-  "name": "about-abap-development",
+  "name": "practical-ci-cd-for-abap",
   "version": "1.0.0",
   "private": true,
   "description": "todo, intro",
@@ -12,19 +12,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/heliconialabs/about-abap-development.git"
+    "url": "git+https://github.com/heliconialabs/practical-ci-cd-for-abap.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/heliconialabs/about-abap-development/issues"
+    "url": "https://github.com/heliconialabs/practical-ci-cd-for-abap/issues"
   },
-  "homepage": "https://github.com/heliconialabs/about-abap-development#readme",
+  "homepage": "https://github.com/heliconialabs/practical-ci-cd-for-abap#readme",
   "dependencies": {
     "@asciidoctor/cli": "^3.5.0",
-    "@asciidoctor/core": "^2.2.4",
+    "@asciidoctor/core": "^2.2.5",
     "asciidoc-link-check": "^1.0.15",
-    "asciidoctor-kroki": "^0.12.0",
+    "asciidoctor-kroki": "^0.14.0",
     "asciidoctor-pdf": "^1.0.0-alpha.12",
     "asciidoctor-plantuml": "^1.5.0"
   }
